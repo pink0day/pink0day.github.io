@@ -1,13 +1,11 @@
 $(function () {
   var initTop = 0
-  $('.toc-child').hide()
+  // $('.toc-child').hide()
 
   // main of scroll
   $(window).scroll(throttle(function (event) {
     var currentTop = $(this).scrollTop()
     if (!isMobile()) {
-      // percentage inspired by hexo-theme-next
-      scrollPercent(currentTop)
       // head position
       findHeadPosition(currentTop)
     }
@@ -81,7 +79,8 @@ $(function () {
     }
     item.velocity('stop').velocity('scroll', {
       duration: 500,
-      easing: 'easeInOutQuart'
+      easing: 'easeInOutQuart',
+      offset: -70,
     })
   }
 
@@ -94,25 +93,6 @@ $(function () {
       duration: 500,
       easing: 'easeInQuart'
     })
-  }
-
-  function scrollPercent (currentTop) {
-    var docHeight = $('#content-outer').height()
-    var winHeight = $(window).height()
-    var contentMath = (docHeight > winHeight) ? (docHeight - winHeight) : ($(document).height() - winHeight)
-    var scrollPercent = (currentTop) / (contentMath)
-    var scrollPercentRounded = Math.round(scrollPercent * 100)
-    var percentage = (scrollPercentRounded > 100) ? 100
-      : (scrollPercentRounded <= 0) ? 0
-        : scrollPercentRounded
-    $('.progress-num').text(percentage)
-    $('.sidebar-toc__progress-bar').velocity('stop')
-      .velocity({
-        width: percentage + '%'
-      }, {
-        duration: 100,
-        easing: 'easeInOutQuart'
-      })
   }
 
   function updateAnchor (anchor) {
@@ -132,25 +112,25 @@ $(function () {
       return false
     }
 
-    var list = $('#post-content').find('h1,h2,h3,h4,h5,h6')
+    var list = $('#post').find('h1,h2,h3,h4,h5,h6')
     var currentId = ''
     list.each(function () {
       var head = $(this)
-      if (top > head.offset().top - 25) {
+      if (top > head.offset().top - 75) {
         currentId = '#' + $(this).attr('id')
       }
     })
 
     if (currentId === '') {
       $('.toc-link').removeClass('active')
-      $('.toc-child').hide()
+      // $('.toc-child').hide()
     }
 
     // fix #286 since hexo v5.0.0 will
     // encodeURI the toc-item href
-    var hexoVersion = GLOBAL_CONFIG.hexoVersion[0]
+    var hexoVersion = '3.9.0'
 
-    if (parseInt(hexoVersion) >= 5) {
+    if (hexoVersion === '5') {
       currentId = encodeURI(currentId)
     }
 
@@ -173,7 +153,7 @@ $(function () {
         // excluding the currently active one
         .closest('.toc-item').siblings('.toc-item')
         // Hide their respective list of subsections
-        .find('.toc-child').hide()
+        // .find('.toc-child').hide()
     }
   }
 })

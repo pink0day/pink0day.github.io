@@ -1,8 +1,5 @@
 $(function () {
-  var imgList = $('.recent-post-item img').not('.no-fancybox')
-  if (imgList.length === 0) {
-    imgList = $('#post-content img').not('.no-fancybox')
-  }
+  imgList = $('#post-content img').not('.no-fancybox')
   for (var i = 0; i < imgList.length; i++) {
     var $a = $(
       '<a href="' +
