@@ -5,6 +5,7 @@
 
 <p>小看一眼这题的代码</p>
 <p>首先就是验证文件类型，然后最主要的就是这里是确定了进入到tem路径下进行解压，然而tem目录我们又进不去，所以我们想一下可不可以绕过这个限制</p>
+<p>tmp目录又不是网站目录，写进去了并不能怎么样，因为我们访问不到的，我们只能利用web目录，tmp在根目录，当然如果有目录穿越或许可以</p>
 <p>这里就可以使用软链接</p>
 <p><img src="C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20231025153427922.png" alt="image-20231025153427922"></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ln -s /var/www/html/ link</span><br></pre></td></tr></table></figure>
